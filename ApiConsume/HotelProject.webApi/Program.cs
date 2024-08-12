@@ -4,6 +4,7 @@ using HotelProject.BusunessLayer.Concrete;
 using HotelProject.DataAccessLayer.Abstract;
 using HotelProject.DataAccessLayer.Concrete;
 using HotelProject.DataAccessLayer.EnitityFramework;
+using HotelProject.EntityLayer.Concrete;
 
 namespace HotelProject.webApi
 {
@@ -32,6 +33,12 @@ namespace HotelProject.webApi
 
             builder.Services.AddScoped<IServicesDal, EfService>();
             builder.Services.AddScoped<IServiceService, ServiceManager>();
+
+            builder.Services.AddScoped<IAboutDal, EfAboutDal>();
+            builder.Services.AddScoped<IAboutService, AboutManager>();
+
+            builder.Services.AddScoped<IBookingDal, EfBookingDal>();
+            builder.Services.AddScoped<IBookingService, BookingManager>();
 
             builder.Services.AddAutoMapper(typeof(Program));
 
