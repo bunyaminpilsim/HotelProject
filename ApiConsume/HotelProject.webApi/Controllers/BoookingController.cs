@@ -7,10 +7,10 @@ namespace HotelProject.webApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookingController : ControllerBase
+    public class BoookingController : ControllerBase
     {
         private readonly IBookingService _bookingService;
-        public BookingController(IBookingService bookingService)
+        public BoookingController(IBookingService bookingService)
         {
             _bookingService = bookingService;
         }
