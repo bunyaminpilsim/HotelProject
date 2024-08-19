@@ -1,10 +1,12 @@
 ﻿using HotelProject.EntityLayer.Concrete;
 using HotelProject.WebUI.DTOs.RegisterDTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelProject.WebUI.Controllers
 {
+    [AllowAnonymous]
     public class RegisterController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -31,7 +33,9 @@ namespace HotelProject.WebUI.Controllers
                 Name = createNewUserDTO.Name,
                 Surname = createNewUserDTO.Surname,
                 UserName = createNewUserDTO.Username,
-                Email = createNewUserDTO.Mail
+                Email = createNewUserDTO.Mail,
+                City = "İstanbul"
+                
             };
             var result= await _userManager.CreateAsync(appUser,createNewUserDTO.Password);
             if (result.Succeeded)
