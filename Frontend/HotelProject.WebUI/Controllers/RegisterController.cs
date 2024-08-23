@@ -34,7 +34,9 @@ namespace HotelProject.WebUI.Controllers
                 Surname = createNewUserDTO.Surname,
                 UserName = createNewUserDTO.Username,
                 Email = createNewUserDTO.Mail,
-                City = "İstanbul"
+                City = "İstanbul",
+                Country="Türkiye",
+                
                 
             };
             var result= await _userManager.CreateAsync(appUser,createNewUserDTO.Password);
