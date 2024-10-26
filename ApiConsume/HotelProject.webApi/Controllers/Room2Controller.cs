@@ -13,11 +13,13 @@ namespace HotelProject.webApi.Controllers
     public class Room2Controller : ControllerBase
     {
         private readonly IRoomService _roomService;
+        private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
 
-        public Room2Controller(IRoomService roomService, IMapper mapper)
+        public Room2Controller(IRoomService roomService, IMapper mapper, ICategoryService categoryService)
         {
             _roomService = roomService;
+            _categoryService = categoryService;
             _mapper = mapper;
         }
 
@@ -26,7 +28,15 @@ namespace HotelProject.webApi.Controllers
         public IActionResult Index()
         {
             var values = _roomService.TGetList();
-            return Ok(values);
+            var roomList = _mapper.Map<List<RoomDTO>>(values);
+
+            
+           foreach (var room in roomList) {
+                room.CategoryName = _categoryService.TGetById(room.CategoryId).Name;
+            }
+
+
+            return Ok(roomList);
         }
 
         [HttpPost]
