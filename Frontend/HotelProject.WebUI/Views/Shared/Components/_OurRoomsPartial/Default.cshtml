@@ -1,4 +1,4 @@
-﻿@model List<ResultRoomDTO>
+﻿ @model List<ResultRoomDTO>
 
 <div class="container-xxl py-5">
     <div class="container">
@@ -8,57 +8,60 @@
             <h1 class="mb-5">Odalarımızı <span class="text-primary text-uppercase">Keşfedin</span></h1>
         </div>
 
-        <!-- Kategori filtreleme dropdown'ı -->
-        <div class="mb-4">
-            <label for="categoryFilter" class="form-label">Kategoriye Göre Filtrele:</label>
-            <select id="categoryFilter" class="form-select">
-                <option value="all">Tüm Kategoriler</option>
-                @foreach (var category in Model.Select(m => m.CategoryName).Distinct())
-                {
-                    <option value="@category">@category</option>
-                }
-            </select>
-        </div>
 
-        <!-- Oda listesi -->
-        <div class="row g-4" id="roomList">
-            @foreach (var item in Model)
-            {
-                <div class="col-lg-4 col-md-6 wow fadeInUp room-item" data-category="@item.CategoryName" data-wow-delay="0.1s">
-                    <div class="shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="@item.RoomCoverImage" alt="">
-                            <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">@item.Price ₺/Gece</small>
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">@item.Title</h5>
-                                <div class="ps-2">
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                </div>
-                            </div>
-                            <div class="d-flex mb-3">
-                                <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>@item.BedCount Yatak</small>
-                                <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>@item.CategoryName KAtEGORİ</small>
-                                <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>@item.BathCount Banyo</small>
-                                <small><i class="fa fa-wifi text-primary me-2"></i>Wifi</small>
-                            </div>
-                            <p class="text-body mb-3">@item.Description</p>
-                            <div class="d-flex justify-content-between">
-                                <a class="btn btn-sm btn-primary rounded py-2 px-4" href="/Booking/Index/">Detayları Gör</a>
-                                <a class="btn btn-sm btn-dark rounded py-2 px-4" href="/Booking/Index/">Rezervasyon Yap</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
+<!-- Kategori filtreleme ve serbest metin arama alanı -->
+<div class="mb-4">
+    <label for="categoryFilter" class="form-label">Kategoriye Göre Filtrele:</label>
+    <select id="categoryFilter" class="form-select">
+        <option value="all">Tüm Kategoriler</option>
+        @foreach (var category in Model.Select(m => m.CategoryName).Distinct())
+        {
+            <option value="@category">@category</option>
+        }
+    </select>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="~/js/site.js"></script>
+<!-- Serbest metin alanı ve filtreleme butonu -->
+<div class="mb-4">
+    <label for="searchText" class="form-label">Açıklamaya Göre Ara:</label>
+    <input type="text" id="searchText" class="form-control" placeholder="Aramak istediğiniz kelimeyi girin...">
+    <button id="filterButton" class="btn btn-primary mt-2">Filtrele</button>
+</div>
+
+<!-- Oda listesi -->
+<div class="row g-4" id="roomList">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-6 wow fadeInUp room-item" data-category="@item.CategoryName" data-description="@item.Description" data-wow-delay="0.1s">
+            <div class="shadow rounded overflow-hidden">
+                <div class="position-relative">
+                    <img class="img-fluid" src="@item.RoomCoverImage" alt="">
+                    <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">@item.Price ₺/Gece</small>
+                </div>
+                <div class="p-4 mt-2">
+                    <div class="d-flex justify-content-between mb-3">
+                        <h5 class="mb-0">@item.Title</h5>
+                        <div class="ps-2">
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                        </div>
+                    </div>
+                    <div class="d-flex mb-3">
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>@item.BedCount Yatak</small>
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>@item.CategoryName Kategori</small>
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>@item.BathCount Banyo</small>
+                        <small><i class="fa fa-wifi text-primary me-2"></i>Wifi</small>
+                    </div>
+                            <p class="text-body mb-3">@(!string.IsNullOrEmpty(item.Description) ? item.Description : "Açıklama bulunmamaktadır.")</p>
+                            <div class="d-flex justify-content-between">
+                        <a class="btn btn-sm btn-primary rounded py-2 px-4" href="/Booking/Index/">Detayları Gör</a>
+                        <a class="btn btn-sm btn-dark rounded py-2 px-4" href="/Booking/Index/">Rezervasyon Yap</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

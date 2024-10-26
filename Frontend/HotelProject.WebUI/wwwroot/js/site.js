@@ -3,18 +3,14 @@
 
 // Write your JavaScript code.
 $(document).ready(function () {
-
-
-
     // Kategori dropdown'ı değiştiğinde çalışacak fonksiyon
     $('#categoryFilter').on('change', function () {
+
         var selectedCategory = $(this).val();
 
         if (selectedCategory === "all") {
-            // Tüm odalar gösterilir
             $('.room-item').show();
         } else {
-            // Seçilen kategoriye göre filtreleme yapılır
             $('.room-item').each(function () {
                 var roomCategory = $(this).data('category');
                 if (roomCategory === selectedCategory) {
@@ -24,5 +20,21 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+    $('#filterButton').click(function () {
+
+        var searchText = $('#searchText').val();
+        $('.room-item').each(function () {
+            $(this).data();
+            
+            var description = $(this).data('description');
+
+            if (description.search(searchText)) {
+                $(this).show();  // Eşleşenleri göster
+            } else {
+                $(this).hide();  // Eşleşmeyenleri gizle
+            }
+        });
     });
 });
