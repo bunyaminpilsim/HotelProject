@@ -27,5 +27,19 @@
     <label>Açıklama</label>
     <input type="text" asp-for="Description" class="form-control" />
     <br />
+
+    <label>Kategori Seçimi</label>
+    <br />
+    @foreach (var category in ViewBag.Categories)
+    {
+        <div class="form-check">
+            <input type="radio" name="CategoryId" value="@category.Id" class="form-check-input" />
+            <label class="form-check-label">@category.Name</label>
+        </div>
+    }
+    <br />
+
     <button class="btn btn-primary">Odayı Ekle</button>
 </form>
+
+

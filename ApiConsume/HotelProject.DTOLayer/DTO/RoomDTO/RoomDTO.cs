@@ -1,16 +1,19 @@
-﻿namespace HotelProject.WebUI.DTOs.RoomDTO
+﻿namespace HotelProject.DTOLayer.DTO.RoomDTO
 {
-    public class CreateRoomDTO
+    public class RoomDTO
     {
+        public int RoomID { get; set; }
         public string RoomNumber { get; set; }
         public string RoomCoverImage { get; set; }
         public int Price { get; set; }
         public string Title { get; set; }
         public string BedCount { get; set; }
         public string BathCount { get; set; }
-        public string? Wifi { get; set; }
+        public string Wifi { get; set; }
         public string Description { get; set; }
-        public int CategoryId { get; set; } // Seçilen kategori ID'si
 
+        public int CategoryId { get; set; }
+
+        public string CategoryName { get; set; }
     }
 }
