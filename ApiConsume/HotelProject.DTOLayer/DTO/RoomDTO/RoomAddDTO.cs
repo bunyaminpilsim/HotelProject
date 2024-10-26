@@ -26,7 +26,6 @@ namespace HotelProject.DTOLayer.DTO.RoomDTO
         public string BathCount { get; set; }
         public string Wifi { get; set; }
         public string Description { get; set; }
-
         public int CategoryId { get; set; }
     }
 }
