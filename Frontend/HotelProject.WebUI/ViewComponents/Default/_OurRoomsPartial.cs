@@ -23,5 +23,7 @@ namespace HotelProject.WebUI.ViewComponents.Default
             }
             return View();
         }
+
+
     }
 }
