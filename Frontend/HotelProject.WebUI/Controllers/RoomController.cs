@@ -31,9 +31,9 @@ namespace HotelProject.WebUI.Controllers
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultRoomDTO>>(jsonData);
-                return View(values);
+                return Json(values); 
             }
-            return View();
+            return Json(new List<ResultRoomDTO>());
         }
     }
 }

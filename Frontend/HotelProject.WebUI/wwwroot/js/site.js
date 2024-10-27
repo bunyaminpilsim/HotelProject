@@ -69,7 +69,7 @@ function applyFilters() {
         url: url, 
         type: 'GET',
         success: function (data) {
-            $('#roomList').html(data);
+            updateRoomList(data)
         },  
         error: function (xhr, status, error) {
             console.error('Hata:', error);
@@ -83,20 +83,40 @@ function updateRoomList(data) {
 
     data.forEach(item => {
         const roomItem = `
-            <div class="col-lg-4 col-md-6 wow fadeInUp room-item" data-category="${item.CategoryName}" data-description="${item.Description}">
-                <div class="shadow rounded overflow-hidden">
-                    <div class="position-relative">
-                        <img class="img-fluid" src="${item.RoomCoverImage}" alt="">
-                        <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">${item.Price} ₺/Gece</small>
+        <div class="col-lg-4 col-md-6 wow fadeInUp room-item" data-category="${ item.categoryName}" data-description="${item.description}" data-wow-delay="0.1s">
+            <div class="shadow rounded overflow-hidden">
+                <div class="position-relative">
+                    <img class="img-fluid" src="${ item.roomCoverImage}" alt="">
+            <small class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4" > ${ item.price } ₺/Gece</small>
+                </div>
+                <div class="p-4 mt-2">
+                    <div class="d-flex justify-content-between mb-3">
+                        <h5 class="mb-0">${ item.title}</h5>
+                        <div class="ps-2">
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                            <small class="fa fa-star text-primary"></small>
+                        </div>
                     </div>
-                    <div class="p-4 mt-2">
-                        <h5>${item.Title}</h5>
-                        <p>${item.Description || "Açıklama bulunmamaktadır."}</p>
+                    <div class="d-flex mb-3">
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>${ item.bedCount} Yatak</small>
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>${ item.categoryName} Kategori</small>
+                        <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>${ item.bathCount} Banyo</small>
+                        <small><i class="fa fa-wifi text-primary me-2"></i>Wifi</small>
+                    </div>
+                            <p class="text-body mb-3">${item.description}</p>
+                            <div class="d-flex justify-content-between">
                         <a class="btn btn-sm btn-primary rounded py-2 px-4" href="/Booking/Index/">Detayları Gör</a>
+                        <a class="btn btn-sm btn-dark rounded py-2 px-4" href="/Booking/Index/">Rezervasyon Yap</a>
                     </div>
                 </div>
             </div>
+        </div>
         `;
         roomList.append(roomItem);
     });
 }
+
+                      

@@ -48,7 +48,14 @@ namespace HotelProject.webApi.Controllers
             var categoryId = _categoryService.TGetList().Where(c => c.Name.Equals(categoryName)).First().Id;
 
             rooms = rooms.Where(r => r.CategoryId == categoryId).ToList();
-            
+
+            var roomList = _mapper.Map<List<RoomDTO>>(rooms);
+
+            foreach (var room in roomList)
+            {
+                room.CategoryName = _categoryService.TGetById(room.CategoryId).Name;
+            }
+
             //if (!string.IsNullOrEmpty(description))
             //{
             //    rooms = rooms.Where(r => r.Description.Contains(description, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -60,7 +67,7 @@ namespace HotelProject.webApi.Controllers
             //    room.CategoryName = _categoryService.TGetById(room.CategoryId).Name;
             //}
 
-            return Ok(rooms);
+            return Ok(roomList);
         }
 
         [HttpPost]
