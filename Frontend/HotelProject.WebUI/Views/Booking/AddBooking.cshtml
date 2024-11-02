@@ -1,5 +1,80 @@
-﻿@model CreateBookingDTO
-<div class="container-xxl py-5">
+﻿@model ResultRoomDTO
+
+<div class="container py-5">
+    <h1 class="text-primary">@Model.Title</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Model.RoomCoverImage" alt="Oda Görseli" class="img-fluid rounded" />
+        </div>
+        <div class="col-md-6">
+            <h3>Oda Bilgileri</h3>
+            <p><strong>Oda Numarası:</strong> @Model.RoomNumber</p>
+            <p><strong>Fiyat:</strong> @Model.Price TL</p>
+            <p><strong>Yatak Sayısı:</strong> @Model.BedCount</p>
+            <p><strong>Banyo Sayısı:</strong> @Model.BathCount</p>
+            <p><strong>Wi-Fi:</strong> @Model.Wifi</p>
+            <p><strong>Açıklama:</strong> @Model.Description</p>
+            <p><strong>Kategori:</strong> @Model.CategoryName</p>
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- Rezervasyon Formu -->
+    <h3>Rezervasyon Yap</h3>
+    <form asp-controller="Booking" asp-action="ReserveRoom" method="post">
+        <input type="hidden" name="roomId" value="@Model.RoomID" />
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="checkInDate">Giriş Tarihi:</label>
+                    <input type="date" id="checkInDate" name="checkInDate" class="form-control" required />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="checkOutDate">Çıkış Tarihi:</label>
+                    <input type="date" id="checkOutDate" name="checkOutDate" class="form-control" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="checkInTime">Giriş Saati:</label>
+                    <select id="checkInTime" name="checkInTime" class="form-control" required>
+                        @for (int hour = 0; hour < 24; hour++)
+                        {
+                            var time = $"{hour:D2}:00";
+                            <option value="@time">@time</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="checkOutTime">Çıkış Saati:</label>
+                    <select id="checkOutTime" name="checkOutTime" class="form-control" required>
+                        @for (int hour = 0; hour < 24; hour++)
+                        {
+                            var time = $"{hour:D2}:00";
+                            <option value="@time">@time</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Rezervasyon Yap</button>
+    </form>
+
+</div>
+
+
+@* <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <h6 class="section-title text-center text-primary text-uppercase">Rezervasyon Paneli</h6>
@@ -95,4 +170,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@

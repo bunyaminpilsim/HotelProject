@@ -25,7 +25,6 @@ namespace HotelProject.webApi.Controllers
         }
 
         [HttpGet]
-
         public IActionResult Index()
         {
             var values = _roomService.TGetList();
@@ -35,7 +34,6 @@ namespace HotelProject.webApi.Controllers
            foreach (var room in roomList) {
                 room.CategoryName = _categoryService.TGetById(room.CategoryId).Name;
             }
-
 
             return Ok(roomList);
         }

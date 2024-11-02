@@ -1,4 +1,6 @@
-﻿using HotelProject.BusunessLayer.Abstract;
+﻿using AutoMapper;
+using HotelProject.BusunessLayer.Abstract;
+using HotelProject.DTOLayer.DTO.RoomDTO;
 using HotelProject.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +12,14 @@ namespace HotelProject.webApi.Controllers
     public class RoomController : ControllerBase
     {
         private readonly IRoomService _roomService;
+        private readonly IMapper _mapper;
+        private readonly ICategoryService _categoryService;
 
-        public RoomController(IRoomService roomService)
+        public RoomController(IRoomService roomService, IMapper mapper, ICategoryService categoryService)
         {
             _roomService = roomService;
+            _mapper = mapper;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -46,7 +52,12 @@ namespace HotelProject.webApi.Controllers
         public IActionResult GetRoom(int id)
         {
             var value = _roomService.TGetById(id);
-            return Ok(value);
+
+            var roomInfo = _mapper.Map<RoomDTO>(value);
+
+            roomInfo.CategoryName = _categoryService.TGetById(value.CategoryId).Name;            
+
+            return Ok(roomInfo);
         }
     }
 }
