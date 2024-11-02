@@ -24,6 +24,11 @@ namespace HotelProject.WebUI.Controllers
                 return View(values);
             }
             return View();
+
+
+
+
+
         }
 
         [HttpGet]
