@@ -9,5 +9,6 @@ namespace HotelProject.BusunessLayer.Abstract
 {
     public interface ICustomerService:IGenericService<Customer>
     {
+        public Customer AddCustomer(Customer c);
     }
 }

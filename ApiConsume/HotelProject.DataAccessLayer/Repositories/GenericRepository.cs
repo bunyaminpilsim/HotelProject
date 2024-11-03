@@ -42,5 +42,13 @@ namespace HotelProject.DataAccessLayer.Repositories
             _context.Update(t);
             _context.SaveChanges();
         }
+
+        public T InsertRretunData(T t)
+        {
+            _context.Add(t);
+            _context.SaveChanges();
+
+            return t;
+        }
     }
 }

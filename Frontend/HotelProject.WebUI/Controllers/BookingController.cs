@@ -1,4 +1,5 @@
-﻿using HotelProject.WebUI.DTOs.BookingDTO;
+﻿using HotelProject.EntityLayer.Concrete;
+using HotelProject.WebUI.DTOs.BookingDTO;
 using HotelProject.WebUI.DTOs.RoomDTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -48,27 +49,20 @@ namespace HotelProject.WebUI.Controllers
         }
 
         [HttpPost]
-        public void ReserveRoom(int roomId, DateTime checkInDate, DateTime checkOutDate, string checkInTime, string checkOutTime)
+        public async Task<IActionResult> ReserveRoom(ReservationRequestDTO reservation)
         {
-            //// CreateBookingDTO nesnesi oluştur
-            //var createBookingDto = new Rezer
-            //{
-            //    RoomId = roomId,
-            //    CheckInDate = checkInDate,
-            //    CheckOutDate = checkOutDate,
-            //    CheckInTime = checkInTime,
-            //    CheckOutTime = checkOutTime,
-            //    Status = "Onay Bekliyor"
-            //};
 
-            // Booking işlemini yap
-            //var client = _httpClientFactory.CreateClient();
-            //var jsonData = JsonConvert.SerializeObject(createBookingDto);
-            //StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            //await client.PostAsync("http://localhost:5209/api/Booking", stringContent);
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(reservation);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("http://localhost:5209/api/Reservation", stringContent);
+          
+           if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("ReservationOK");
+            }
+            return View();
 
-            //// Başarılı bir rezervasyon sonrası yönlendirme
-            //return RedirectToAction("Index", new { roomId });
         }
 
     }

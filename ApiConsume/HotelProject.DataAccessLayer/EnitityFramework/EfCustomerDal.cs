@@ -14,6 +14,8 @@ namespace HotelProject.DataAccessLayer.EnitityFramework
     {
         public EfCustomerDal(Context context) : base(context)
         {
+
         }
+
     }
 }

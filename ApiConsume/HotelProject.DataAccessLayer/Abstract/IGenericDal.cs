@@ -13,5 +13,6 @@ namespace HotelProject.DataAccessLayer.Abstract
         void Update(T t);
         List<T> GetList();
         T GetById(int id);
+        T InsertRretunData(T t);
     }
 }

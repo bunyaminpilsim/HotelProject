@@ -18,6 +18,11 @@ namespace HotelProject.BusunessLayer.Concrete
             _costumerDal = costumerDal;
         }
 
+        public Customer AddCustomer(Customer c)
+        {
+           return _costumerDal.InsertRretunData(c);
+        }
+
         public void TDelete(Customer t)
         {
             _costumerDal.Delete(t);
