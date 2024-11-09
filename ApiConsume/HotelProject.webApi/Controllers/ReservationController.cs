@@ -38,13 +38,12 @@ namespace HotelProject.webApi.Controllers
                 Phone = reservationRequestDTO.Phone
             };
 
-            customer = _customerService.AddCustomer(customer);
+            //customer = _customerService.AddCustomer(customer);
 
             var rezervation = new Rezervation
             {
                 CreateTime = DateTime.Now,
                 CreateUser = "armut",
-                CustomerId = customer.Id,
                 ReservationEndDate = reservationRequestDTO.CheckInDate,
                 ReservationEndTime = TimeSpan.Parse(reservationRequestDTO.CheckInTime),
                 ReservationStartDate = reservationRequestDTO.CheckOutDate,
@@ -53,6 +52,7 @@ namespace HotelProject.webApi.Controllers
                 Status = "A",
                 UpdateTime = DateTime.Now,
                 UpdateUser = "A",
+                customer = customer
             };
 
             _reservationService.TInsert(rezervation);

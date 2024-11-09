@@ -10,7 +10,7 @@ namespace HotelProject.EntityLayer.Concrete
     {
         public int Id { get; set; }
         public int RoomId { get; set; }
-        public int CustomerId { get; set; }
+        public int CustomerIddX { get; set; }
         public DateTime ReservationStartDate { get; set; }
         public TimeSpan ReservationStartTime { get; set; }
         public DateTime ReservationEndDate { get; set; }
@@ -20,5 +20,6 @@ namespace HotelProject.EntityLayer.Concrete
         public string CreateUser { get; set; }
         public DateTime? UpdateTime { get; set; }
         public string? UpdateUser { get; set; }
+        public Customer customer { get; set; }
     }
 }
